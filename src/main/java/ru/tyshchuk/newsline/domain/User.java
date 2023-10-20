@@ -16,25 +16,32 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = true, name = "first_name")
+    @Column(nullable = false, name = "first_name")
     private String firstName;
-    @Column(nullable = true, name = "second_name")
+    @Column(name = "second_name")
     private String secondName;
-    @Column(nullable = true, name = "surname")
+    @Column(nullable = false, name = "surname")
     private String surname;
     @Column(nullable = false)
     private String username;
     @Column(nullable = false)
     private String password;
-    @Column(nullable = true)
+    @Column(nullable = false, unique = true)
     private String email;
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true)
     private List<UserRole> roles;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Message> messages;
 
-    public User(String username, String password, List<UserRole> roles) {
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Like> likes;
+
+    public User(String firstName, String surname, String username, String password, String email) {
+        this.firstName = firstName;
+        this.surname = surname;
         this.username = username;
         this.password = password;
-        this.roles = roles;
+        this.email = email;
     }
 
     public User(String username, String password) {

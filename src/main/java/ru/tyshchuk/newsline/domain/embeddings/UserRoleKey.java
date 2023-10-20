@@ -1,4 +1,4 @@
-package ru.tyshchuk.newsline.domain;
+package ru.tyshchuk.newsline.domain.embeddings;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

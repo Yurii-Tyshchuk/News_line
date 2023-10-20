@@ -3,6 +3,7 @@ package ru.tyshchuk.newsline.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.tyshchuk.newsline.domain.embeddings.UserRoleKey;
 
 import javax.persistence.*;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "user_role")
 public class UserRole {
     public UserRole(User user, Role role) {
         this.user = user;
