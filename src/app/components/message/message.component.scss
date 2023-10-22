@@ -1,0 +1,10 @@
+.message_container {
+  background-color: white;
+  border-radius: 16px;
+  padding: 15px;
+  & pre {
+    font-family: var(--bs-body-font-family);
+    font-size: 1.5em;
+  }
+}
+

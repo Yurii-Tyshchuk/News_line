@@ -1,0 +1,13 @@
+<div class="message_container">
+    <h3>{{message.header}}</h3>
+    <div>
+        <pre>{{message.text}}</pre>
+        <div *ngIf="message.likes.length > 0" (click)="dislike(message.id)" style="cursor: pointer">
+            <fa-icon [icon]="faHeart"></fa-icon>
+            <span>{{message.likes.length}}</span>
+        </div>
+        <div *ngIf="message.likes.length == 0" (click)="like(message.id)" style="cursor: pointer">
+            <fa-icon [icon]="faHeartBroken"></fa-icon>
+        </div>
+    </div>
+</div>

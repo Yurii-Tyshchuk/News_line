@@ -18,12 +18,16 @@ public class Role implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, unique = true)
     private Roles role;
-
     @Override
     public String getAuthority() {
         return getRole().name(); //ToString() - тоже подходит
+    }
+
+    public Role(Roles role) {
+        this.role = role;
     }
 }

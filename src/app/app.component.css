@@ -1,5 +1,5 @@
 .main_container {
-    width: 80%;
+    width: 60%;
     height: 100%;
     margin-left: auto;
     margin-right: auto;
@@ -7,9 +7,12 @@
 }
 
 .header_container {
-    width: 100%;
+    width: 90%;
     height: 45px;
     background-color: #0366d6;
+    margin: auto;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
 }
 
 .content_container {
@@ -20,18 +23,18 @@
 }
 
 .tool_bar {
+    margin-top: 26px;
+    font-size: 18px;
     width: 20%;
     height: 100%;
-    /*background-color: #008800;*/
     border: 2px #111111;
 }
 
 .content {
     width: 80%;
     height: 100%;
-    background-color: #000000;
 }
 
 .routing_button {
-
+    cursor: pointer;
 }

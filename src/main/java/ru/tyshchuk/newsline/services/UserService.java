@@ -6,11 +6,13 @@ import org.springframework.stereotype.Service;
 import ru.tyshchuk.newsline.domain.Role;
 import ru.tyshchuk.newsline.domain.Roles;
 import ru.tyshchuk.newsline.domain.User;
+import ru.tyshchuk.newsline.domain.UserRole;
+import ru.tyshchuk.newsline.domain.embeddings.UserRoleKey;
+import ru.tyshchuk.newsline.dto.user.RequestUser;
 import ru.tyshchuk.newsline.repository.RoleRepository;
 import ru.tyshchuk.newsline.repository.UserRepository;
 import ru.tyshchuk.newsline.repository.UserRoleRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,46 +30,41 @@ public class UserService {
         this.userRoleRepository = userRoleRepository;
     }
 
-    public User register(User user) {
+    public void register(RequestUser user) {
+        User user1 = RequestUser.create(user);
+        user1.setPassword(passwordEncoder.encode(user.getPassword()));
+
         Role roleUser = roleRepository.findByRole(Roles.ROLE_USER);
-        List<Role> userRoles = new ArrayList<>();
-        userRoles.add(roleUser);
+        UserRole userRole = new UserRole(user1, roleUser);
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user1 = userRepository.save(user1);
 
-        User registeredUser = userRepository.save(user);
-
-        log.info("IN register - user: {} successfully registered", registeredUser);
-
-        return registeredUser;
+        userRole.setId(new UserRoleKey(user1.getId(), roleUser.getId()));
+        userRoleRepository.save(userRole);
     }
 
     public List<User> getAll() {
         List<User> result = userRepository.findAll();
-        log.info("IN getAll - {} users found", result.size());
         return result;
     }
 
     public User findByUsername(String username) {
         User result = userRepository.findByUsername(username);
-        log.info("IN findByUsername - user: {} found by username: {}", result, username);
+        if (result == null) {
+            throw new RuntimeException("User not found");
+        }
         return result;
     }
 
     public User findById(Long id) {
         User result = userRepository.findById(id).orElse(null);
-
         if (result == null) {
-            log.warn("IN findById - no user found by id: {}", id);
             return null;
         }
-
-        log.info("IN findById - user: {} found by id: {}", result);
         return result;
     }
 
     public void delete(Long id) {
         userRepository.deleteById(id);
-        log.info("IN delete - user with id: {} successfully deleted");
     }
 }

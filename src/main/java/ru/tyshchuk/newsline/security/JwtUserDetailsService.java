@@ -14,7 +14,6 @@ import ru.tyshchuk.newsline.services.UserService;
 @Service
 @Slf4j
 public class JwtUserDetailsService implements UserDetailsService {
-
     private final UserService userService;
 
     @Autowired

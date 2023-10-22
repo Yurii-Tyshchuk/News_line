@@ -1,0 +1,17 @@
+<div class="profile_container">
+    <div class="profile_info">
+        <h3>Мой профиль</h3>
+        <div *ngIf="user">
+            <h3>{{user.surname}} {{user.first_name}} {{user.second_name}}</h3>
+            <span>Email: {{user.email}}</span>
+        </div>
+    </div>
+    <ng-container *ngIf="user?.messages">
+        <div>
+            <h3 class="profile_info">Мои новости:</h3>
+            <ng-container *ngFor="let message of user?.messages">
+                <message (likeIsChanged)="reload($event)" [message]="message"></message>
+            </ng-container>
+        </div>
+    </ng-container>
+</div>

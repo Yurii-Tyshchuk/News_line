@@ -1,5 +1,6 @@
 package ru.tyshchuk.newsline.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,9 +21,16 @@ public class Like {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "message_id", nullable = false)
+    @JsonBackReference
     private Message message;
+
+    public Like(User user, Message message) {
+        this.user = user;
+        this.message = message;
+    }
 }

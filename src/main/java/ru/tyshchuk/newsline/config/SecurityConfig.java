@@ -12,11 +12,8 @@ import ru.tyshchuk.newsline.security.jwt.JwtTokenProvider;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
     private final JwtTokenProvider jwtTokenProvider;
-
     private static final String ADMIN_ENDPOINT = "/api/v1/admin/**";
-    private static final String LOGIN_ENDPOINT = "/api/v1/auth/login";
 
     @Autowired
     public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
@@ -39,7 +36,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/*").permitAll()
                 .antMatchers("/api/public/**").permitAll()
-                .antMatchers(LOGIN_ENDPOINT).permitAll()
+                .antMatchers("/api/auth/login").permitAll()
+                .antMatchers("/api/message/getAll").permitAll()
+                .antMatchers("/api/profile/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/api/like/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/api/message/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers(ADMIN_ENDPOINT).hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()

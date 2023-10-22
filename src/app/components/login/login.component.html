@@ -1,0 +1,19 @@
+<div class="login_container">
+    <h2>Добро пожаловать</h2>
+    <h4>Чтобы войти укажите логин и пароль для входа в аккаунт</h4>
+    <div class="fields_container">
+        <mat-form-field color="accent">
+            <mat-label>Логин</mat-label>
+            <input matInput type="text" [formControl]="profileForm.controls.login">
+            <mat-error *ngIf="profileForm.controls.login.hasError('required')">Не указан Логин</mat-error>
+        </mat-form-field>
+        <mat-form-field color="accent">
+            <mat-label>Пароль</mat-label>
+            <input matInput type="password" [formControl]="profileForm.controls.password">
+            <mat-error *ngIf="profileForm.controls.password.hasError('required')">Не указан Пароль</mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="accent" [disabled]="profileForm.invalid" (click)="login()">Войти</button>
+    </div>
+    <span>Или вы можете зарегистрироваться</span>
+    <button mat-raised-button color="accent" (click)="redirectToRegister()">Зарегистрироваться</button>
+</div>

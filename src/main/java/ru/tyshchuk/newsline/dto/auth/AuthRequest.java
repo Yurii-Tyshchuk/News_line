@@ -1,4 +1,4 @@
-package ru.tyshchuk.newsline.dto;
+package ru.tyshchuk.newsline.dto.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
