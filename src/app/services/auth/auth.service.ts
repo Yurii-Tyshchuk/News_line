@@ -47,6 +47,7 @@ export class AuthService {
                 this._username = ""
                 this.lastDate = undefined;
                 this.cookieService.delete("token")
+                this.cookieService.delete('username')
                 subject.next(false);
                 subject.complete()
             }
@@ -70,6 +71,46 @@ export class AuthService {
         return subject;
     }
 
+    public logout(): void {
+        this._isLogin = false;
+        this._token = ""
+        this._username = ""
+        this.lastDate = undefined;
+        this.cookieService.delete("token")
+        this.cookieService.delete('username')
+        this.router.navigate(['/login']);
+    }
+
+    public register(firstName: string | null,
+                    secondName: string | null,
+                    surname: string | null,
+                    username: string | null,
+                    email: string | null,
+                    password: string | null): void {
+        this.http.post('api/profile/create', {
+            firstName,
+            secondName,
+            surname,
+            username,
+            email,
+            password
+        }, {responseType: 'text'}).subscribe({
+            next: value => {
+                // @ts-ignore
+                this.getToken(username, password).subscribe({
+                    next: value1 => {
+                        if (value1) {
+                            this.router.navigate(['/profile']);
+                        }
+                    }
+                })
+            },
+            error: err => {
+                console.error(err)
+            }
+        })
+    }
+
     get token(): string {
         return this._token;
     }
@@ -78,10 +119,10 @@ export class AuthService {
         return this._isLogin;
     }
 
+
     set isLogin(value: boolean) {
         this._isLogin = value;
     }
-
 
     get username(): string {
         return this._username;

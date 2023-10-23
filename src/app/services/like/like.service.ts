@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../auth/auth.service";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
+import {Like} from "../../components/model/like";
 
 @Injectable({
     providedIn: 'root'
@@ -18,5 +19,15 @@ export class LikeService {
                 change
             }
         })
+    }
+
+    public getAllByUsername(): Observable<Like[]> {
+        if (this.authService.username)
+            return this.http.get<Like[]>('/api/like/getMy', {
+                params: {
+                    username: this.authService.username
+                }
+            })
+        else return of([])
     }
 }

@@ -1,1 +1,38 @@
-<p>register works!</p>
+<div class="login_container">
+    <h2>Добро пожаловать</h2>
+    <h4>Чтобы войти укажите данные для регистрации</h4>
+    <div class="fields_container">
+        <mat-form-field color="accent">
+            <mat-label>Имя</mat-label>
+            <input matInput type="text" [formControl]="profileForm.controls.first_name">
+            <mat-error *ngIf="profileForm.controls.first_name.hasError('required')">Не указано Имя</mat-error>
+        </mat-form-field>
+        <mat-form-field color="accent">
+            <mat-label>Отчество</mat-label>
+            <input matInput type="text" [formControl]="profileForm.controls.second_name">
+            <mat-error *ngIf="profileForm.controls.second_name.hasError('required')">Не указано Отчество</mat-error>
+        </mat-form-field>
+        <mat-form-field color="accent">
+            <mat-label>Фамилия</mat-label>
+            <input matInput type="text" [formControl]="profileForm.controls.surname">
+            <mat-error *ngIf="profileForm.controls.surname.hasError('required')">Не указана Фамилия</mat-error>
+        </mat-form-field>
+        <mat-form-field color="accent">
+            <mat-label>Почта</mat-label>
+            <input matInput type="text" [formControl]="profileForm.controls.email">
+            <mat-error *ngIf="profileForm.controls.email.hasError('required')">Не указана Почта</mat-error>
+            <mat-error *ngIf="profileForm.controls.email.hasError('email')">Некорректная Почта</mat-error>
+        </mat-form-field>
+        <mat-form-field color="accent">
+            <mat-label>Логин</mat-label>
+            <input matInput type="text" [formControl]="profileForm.controls.username">
+            <mat-error *ngIf="profileForm.controls.username.hasError('required')">Не указан Логин</mat-error>
+        </mat-form-field>
+        <mat-form-field color="accent">
+            <mat-label>Пароль</mat-label>
+            <input matInput type="password" [formControl]="profileForm.controls.password">
+            <mat-error *ngIf="profileForm.controls.password.hasError('required')">Не указан Пароль</mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="accent" [disabled]="profileForm.invalid" (click)="register()">Войти</button>
+    </div>
+</div>

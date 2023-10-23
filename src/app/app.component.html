@@ -4,8 +4,9 @@
         <div class="tool_bar">
             <div class="routing_button" [routerLink]="'profile'">Профиль</div>
             <div class="routing_button" [routerLink]="'feed'">Новости</div>
-            <div class="routing_button" [routerLink]="'customFeed'">Ваши рекомендации</div>
-            <div class="routing_button">Создать новость</div>
+            <div class="routing_button" *ngIf="authService.isLogin" [routerLink]="'customFeed'">Ваши рекомендации</div>
+            <div class="routing_button" *ngIf="authService.isLogin" [routerLink]="'create'">Создать новость</div>
+            <div class="routing_button" *ngIf="authService.isLogin" (click)="logout()">Выйти</div>
         </div>
         <div class="content">
             <router-outlet></router-outlet>

@@ -24,10 +24,5 @@ public class MessageAndTag {
     @ManyToOne
     @MapsId("tagId")
     @JoinColumn(name = "tag_id")
-    @JsonBackReference
     private Tag tag;
-
-    public MessageAndTag(MessageTagKey id) {
-        this.id = id;
-    }
 }

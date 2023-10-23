@@ -40,6 +40,15 @@ public class LikeController {
             log.error(e.getMessage(), e);
             return ResponseEntity.internalServerError().build();
         }
+    }
 
+    @GetMapping("/getMy")
+    public ResponseEntity getMyLike(@RequestParam("username") String username) {
+        try {
+            User user = this.userService.findByUsername(username);
+            return ResponseEntity.ok(this.likeService.getAllByName(user));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 }

@@ -1,0 +1,32 @@
+<div class="login_container">
+    <h2>Создание новости</h2>
+    <div class="fields_container">
+        <mat-form-field color="accent">
+            <mat-label>Заголовок</mat-label>
+            <input matInput type="text" [formControl]="messageForm.controls.header">
+            <mat-error *ngIf="messageForm.controls.header.hasError('required')">Не указан Заголовок</mat-error>
+        </mat-form-field>
+        <mat-form-field color="accent">
+            <mat-label>Текст</mat-label>
+            <textarea matInput type="textarea" [formControl]="messageForm.controls.text"></textarea>
+            <mat-error *ngIf="messageForm.controls.text.hasError('required')">Не указан Текст</mat-error>
+        </mat-form-field>
+        <div>
+            <mat-form-field color="accent">
+                <mat-label>Создать новый тэг</mat-label>
+                <input matInput type="text" [(ngModel)]="newTag">
+            </mat-form-field>
+            <button mat-raised-button color="accent" (click)="createTag()">Создать</button>
+        </div>
+        <mat-form-field color="accent">
+            <mat-label>Тэги</mat-label>
+            <mat-select [formControl]="messageForm.controls.tags" multiple>
+                <mat-select-trigger>
+                    {{messageForm.controls.tags.value?.[0] || ''}}
+                </mat-select-trigger>
+                <mat-option *ngFor="let tag of allTags" [value]="tag.name">{{tag.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <button mat-raised-button color="accent" (click)="createMessage()">Создать новость</button>
+</div>

@@ -5,6 +5,7 @@ import {AuthGuard} from "./services/auth/auth.guard";
 import {FeedComponent} from "./components/feed/feed.component";
 import {RegisterComponent} from "./components/register/register.component";
 import {LoginComponent} from "./components/login/login.component";
+import {CreateMessageComponent} from "./components/create-message/create-message.component";
 
 const routes: Routes = [
     {
@@ -30,7 +31,8 @@ const routes: Routes = [
         component: FeedComponent,
         data: {
             pageName: 'customFeed'
-        }
+        },
+        canActivate: [AuthGuard]
     },
     {
         path: '',
@@ -55,6 +57,15 @@ const routes: Routes = [
         data: {
             pageName: 'login'
         }
+    },
+    {
+        path: 'create',
+        title: 'Создание новости',
+        component: CreateMessageComponent,
+        data: {
+            pageName: 'create-message'
+        },
+        canActivate: [AuthGuard]
     },
 ];
 

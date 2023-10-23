@@ -14,6 +14,7 @@ import {FormsModule} from "@angular/forms";
 import {TokenInterceptor} from "./interceptors/token/token.interceptor";
 import {CookieService} from "ngx-cookie-service";
 import {MessageComponent} from './components/message/message.component';
+import { CreateMessageComponent } from './components/create-message/create-message.component';
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import {MessageComponent} from './components/message/message.component';
         FeedComponent,
         RegisterComponent,
         LoginComponent,
-        MessageComponent
+        MessageComponent,
+        CreateMessageComponent
     ],
     imports: [
         BrowserModule,

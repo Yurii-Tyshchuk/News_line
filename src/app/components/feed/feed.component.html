@@ -1,1 +1,8 @@
-<p>feed works!</p>
+<ng-container *ngIf="messages">
+    <div>
+        <h3 class="profile_info">Новости:</h3>
+        <ng-container *ngFor="let message of messages">
+            <message (likeIsChanged)="reload($event)" [message]="message"></message>
+        </ng-container>
+    </div>
+</ng-container>

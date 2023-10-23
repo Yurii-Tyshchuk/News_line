@@ -1,13 +1,18 @@
 <div class="message_container">
     <h3>{{message.header}}</h3>
     <div>
-        <pre>{{message.text}}</pre>
-        <div *ngIf="message.likes.length > 0" (click)="dislike(message.id)" style="cursor: pointer">
+        <pre style="white-space: pre-wrap;">{{message.text}}</pre>
+        <div *ngIf="message.likes.length > 0" (click)="like(message)" style="cursor: pointer">
             <fa-icon [icon]="faHeart"></fa-icon>
             <span>{{message.likes.length}}</span>
         </div>
-        <div *ngIf="message.likes.length == 0" (click)="like(message.id)" style="cursor: pointer">
+        <div *ngIf="message.likes.length == 0" (click)="like(message)" style="cursor: pointer">
             <fa-icon [icon]="faHeartBroken"></fa-icon>
+        </div>
+        <div class="tag_container">
+            <ng-container *ngFor="let tag of message.tag">
+                <div class="tag_item">{{tag.tag.name}}</div>
+            </ng-container>
         </div>
     </div>
 </div>

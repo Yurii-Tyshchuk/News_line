@@ -8,6 +8,8 @@ import ru.tyshchuk.newsline.domain.Message;
 import ru.tyshchuk.newsline.domain.User;
 import ru.tyshchuk.newsline.repository.LikeRepository;
 
+import java.util.List;
+
 @Service
 @Slf4j
 @AllArgsConstructor
@@ -21,5 +23,9 @@ public class LikeService {
     public void like(User user, Message message) {
         Like like = new Like(user, message);
         this.likeRepository.save(like);
+    }
+
+    public List<Like> getAllByName(User userName) {
+        return likeRepository.findByUser(userName);
     }
 }

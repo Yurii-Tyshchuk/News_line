@@ -7,5 +7,4 @@ export interface User {
     id: number;
     likes: any[];
     messages: any[];
-
 }

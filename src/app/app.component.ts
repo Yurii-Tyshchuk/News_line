@@ -8,7 +8,7 @@ import {AuthService} from "./services/auth/auth.service";
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    constructor(private http: HttpClient, private authService: AuthService) {
+    constructor(private http: HttpClient, public authService: AuthService) {
         this.http.get('api/auth/check').subscribe({
             next: () => {
                 this.authService.isLogin = true;
@@ -18,5 +18,9 @@ export class AppComponent {
                 this.authService.isLogin = false;
             }
         })
+    }
+
+    logout() {
+        this.authService.logout();
     }
 }

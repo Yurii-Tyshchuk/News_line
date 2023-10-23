@@ -16,20 +16,42 @@ export class MessageComponent {
     faHeartBroken = faHeartBroken
     @Input()
     public message!: Message
+    private buffer: { id: number }[] = []
 
     constructor(private likeService: LikeService) {
+        this.getAllByUsername();
     }
 
-    public dislike(id: number): void {
-        this.likeService.change(id, false).subscribe({
-            next: () => {
-                this.likeIsChanged.emit(true)
-            },
+    private getAllByUsername(): void {
+        this.likeService.getAllByUsername().subscribe({
+            next: value => {
+                if (value) {
+                    this.buffer = []
+                    for (let like1 of value)
+                        this.buffer.push(like1)
+                }
+            }
         })
     }
 
-    public like(id: number): void {
-        this.likeService.change(id, true).subscribe({
+    public like(message: Message): void {
+        let flag = false;
+        if (message.likes) {
+            let flag2 = true;
+            for (let like of message.likes) {
+                if (this.buffer.find(value => value.id === like.id)) {
+                    flag = false;
+                    flag2 = false;
+                    break;
+                }
+            }
+            if (flag2)
+                flag = true;
+        } else {
+            flag = true;
+        }
+
+        this.likeService.change(message.id, flag).subscribe({
             next: () => {
                 this.likeIsChanged.emit(true)
             },

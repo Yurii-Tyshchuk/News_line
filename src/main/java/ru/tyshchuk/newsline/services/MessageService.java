@@ -47,7 +47,7 @@ public class MessageService {
 
         List<MessageAndTag> buffer = new ArrayList<>();
         for (Tag tag1 : tags)
-            buffer.add(new MessageAndTag(new MessageTagKey(message.getId(), tag1.getId())));
+            buffer.add(new MessageAndTag(new MessageTagKey(message.getId(), tag1.getId()), message, tag1));
 
         this.messageAndTagRepository.saveAll(buffer);
     }
@@ -55,6 +55,10 @@ public class MessageService {
     public List<Message> gerRecommendation(String username) {
         User user = this.userService.findByUsername(username);
         Set<Long> tags = new HashSet<>();
+        if (user.getLikes().size() == 0) {
+            return getAllMessages();
+        }
+
         for (Like like : user.getLikes()) {
             List<Long> tagIds = like.getMessage().getTag().stream()
                     .map(messageAndTag -> messageAndTag.getId().getTagId())

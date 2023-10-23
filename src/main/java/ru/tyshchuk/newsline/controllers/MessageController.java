@@ -2,6 +2,7 @@ package ru.tyshchuk.newsline.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,7 +43,7 @@ public class MessageController {
     }
 
     @RequestMapping("/create")
-    public ResponseEntity createMessage(RequestMessage requestMessage) {
+    public ResponseEntity createMessage(@RequestBody RequestMessage requestMessage) {
         try {
             this.messageService.createMessage(requestMessage);
             return ResponseEntity.ok("Message created successfully");
