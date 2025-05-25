@@ -38,6 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/public/**").permitAll()
                 .antMatchers("/api/auth/login").permitAll()
                 .antMatchers("/api/message/getAll").permitAll()
+                .antMatchers("/api/message/getByTextAndTags").permitAll()
                 .antMatchers("/api/profile/create").permitAll()
                 .antMatchers("/api/tag/**").permitAll()
                 .antMatchers("/api/tag/create").hasAnyRole("USER", "ADMIN")

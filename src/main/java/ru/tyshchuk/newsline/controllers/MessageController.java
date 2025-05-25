@@ -2,12 +2,10 @@ package ru.tyshchuk.newsline.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.tyshchuk.newsline.domain.Message;
 import ru.tyshchuk.newsline.dto.message.RequestMessage;
+import ru.tyshchuk.newsline.dto.message.SearchMessage;
 import ru.tyshchuk.newsline.services.MessageService;
 
 import java.util.List;
@@ -43,7 +41,7 @@ public class MessageController {
     }
 
     @RequestMapping("/create")
-    public ResponseEntity createMessage(@RequestBody RequestMessage requestMessage) {
+    public ResponseEntity<?> createMessage(@RequestBody RequestMessage requestMessage) {
         try {
             this.messageService.createMessage(requestMessage);
             return ResponseEntity.ok("Message created successfully");
@@ -60,6 +58,16 @@ public class MessageController {
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             return null;
+        }
+    }
+
+    @RequestMapping(value = "/getByTextAndTags", method = RequestMethod.POST)
+    public List<Message> getByTextAndTags(@RequestBody SearchMessage message) {
+        try {
+            return this.messageService.getByTextAndTags(message);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return List.of();
         }
     }
 }

@@ -105,8 +105,8 @@ export class AuthService {
                     }
                 })
             },
-            error: err => {
-                console.error(err)
+            error: () => {
+                alert("Повторяющиеся значение в логине или почте")
             }
         })
     }

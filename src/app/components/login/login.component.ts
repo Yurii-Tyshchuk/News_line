@@ -26,6 +26,11 @@ export class LoginComponent {
                 next: value => {
                     if (value)
                         this.router.navigate(["/profile"])
+                    else
+                        alert("Не верный логин/пароль")
+                },
+                error: () => {
+                    alert("Не верный логин/пароль")
                 }
             })
         }

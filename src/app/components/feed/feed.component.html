@@ -1,6 +1,6 @@
 <ng-container *ngIf="messages">
     <div>
-        <h3 class="profile_info">Новости:</h3>
+        <h3 class="profile_info">{{route.snapshot.routeConfig?.title}}</h3>
         <ng-container *ngFor="let message of messages">
             <message (likeIsChanged)="reload($event)" [message]="message"></message>
         </ng-container>

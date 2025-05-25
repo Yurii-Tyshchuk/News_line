@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.tyshchuk.newsline.domain.*;
 import ru.tyshchuk.newsline.domain.embeddings.MessageTagKey;
 import ru.tyshchuk.newsline.dto.message.RequestMessage;
+import ru.tyshchuk.newsline.dto.message.SearchMessage;
 import ru.tyshchuk.newsline.repository.MessageAndTagRepository;
 import ru.tyshchuk.newsline.repository.MessageRepository;
 import ru.tyshchuk.newsline.repository.TagRepository;
@@ -72,5 +73,27 @@ public class MessageService {
             messages.addAll(foundMessages);
         }
         return messages.stream().toList();
+    }
+
+    public List<Message> getByTextAndTags(SearchMessage message) {
+        List<Message> messages;
+        if (message.getText() == null) {
+            messages = this.messageRepository.findAll();
+        } else {
+            messages = messageRepository.findByTextContains(message.getText());
+        }
+        if (message.getTags().size() == 0) return messages;
+        return messages.stream()
+                .filter(message1 -> message1.getTag()
+                        .stream()
+                        .anyMatch(message2 -> {
+                            for (String tag : message.getTags())
+                                if (tag.equals(message2.getTag().getName())) {
+                                    return true;
+                                }
+                            return false;
+                        })
+                )
+                .toList();
     }
 }

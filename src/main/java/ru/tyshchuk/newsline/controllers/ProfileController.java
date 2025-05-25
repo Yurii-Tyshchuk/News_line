@@ -23,7 +23,7 @@ public class ProfileController {
     }
 
     @RequestMapping(value = "/getProfileInfo", method = RequestMethod.GET)
-    public ResponseEntity getProfileInfo(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+    public ResponseEntity<?> getProfileInfo(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
         try {
             if (token == null) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
@@ -39,13 +39,13 @@ public class ProfileController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ResponseEntity create(@RequestBody RequestUser user) {
+    public ResponseEntity<?> create(@RequestBody RequestUser user) {
         try {
             this.userService.register(user);
             return ResponseEntity.ok("User created successfully");
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            return ResponseEntity.internalServerError().build();
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 }

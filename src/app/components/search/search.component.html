@@ -1,0 +1,28 @@
+<div class="search_container">
+    <div class="top_container">
+        <div class="fields_container">
+            <mat-form-field color="accent">
+                <mat-label>Текст</mat-label>
+                <input matInput type="text" [formControl]="searchForm.controls.text">
+                <mat-error *ngIf="searchForm.controls.text.hasError('required')">Не указан Текст</mat-error>
+            </mat-form-field>
+            <mat-form-field color="accent">
+                <mat-label>Тэги</mat-label>
+                <mat-select [formControl]="searchForm.controls.tags" multiple>
+                    <mat-select-trigger>
+                        {{searchForm.controls.tags.value?.[0] || ''}}
+                    </mat-select-trigger>
+                    <mat-option *ngFor="let tag of allTags" [value]="tag.name">{{tag.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <button mat-raised-button (click)="search()">Поиск</button>
+    </div>
+    <ng-container *ngIf="messages">
+        <div>
+            <ng-container *ngFor="let message of messages">
+                <message (likeIsChanged)="reload($event)" [message]="message"></message>
+            </ng-container>
+        </div>
+    </ng-container>
+</div>

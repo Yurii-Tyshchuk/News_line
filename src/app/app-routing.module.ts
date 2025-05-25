@@ -6,6 +6,7 @@ import {FeedComponent} from "./components/feed/feed.component";
 import {RegisterComponent} from "./components/register/register.component";
 import {LoginComponent} from "./components/login/login.component";
 import {CreateMessageComponent} from "./components/create-message/create-message.component";
+import {SearchComponent} from "./components/search/search.component";
 
 const routes: Routes = [
     {
@@ -27,7 +28,7 @@ const routes: Routes = [
     },
     {
         path: 'customFeed',
-        title: 'Новости',
+        title: 'Рекомендации',
         component: FeedComponent,
         data: {
             pageName: 'customFeed'
@@ -56,6 +57,14 @@ const routes: Routes = [
         component: LoginComponent,
         data: {
             pageName: 'login'
+        }
+    },
+    {
+        path: 'search',
+        title: 'Поиск',
+        component: SearchComponent,
+        data: {
+            pageName: 'search'
         }
     },
     {

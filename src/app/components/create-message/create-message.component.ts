@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {Tag} from "../model/tag";
 import {AuthService} from "../../services/auth/auth.service";
 import {Router} from "@angular/router";
+import {TagService} from "../../services/tag/tag.service";
 
 @Component({
     selector: 'create-message',
@@ -19,32 +20,27 @@ export class CreateMessageComponent {
     })
     newTag: string | undefined;
 
-    constructor(private http: HttpClient, private authService: AuthService, private router: Router) {
+    constructor(private http: HttpClient,
+                private authService: AuthService,
+                private router: Router,
+                private tagService: TagService) {
         this.getAll();
     }
 
     public getAll(): void {
-        this.http.get<Tag[]>('/api/tag/getAll').subscribe({
+        this.tagService.getAll().subscribe({
             next: value => {
                 this.allTags = value;
                 this.newTag = '';
             },
-            error: err => {
-                console.error(err)
-            }
+            error: console.error
         })
     }
 
     public createTag(): void {
         if (this.newTag)
-            this.http.get('/api/tag/create', {
-                params: {
-                    name: this.newTag
-                }
-            }).subscribe({
-                next: () => {
-                    this.getAll()
-                },
+            this.tagService.createTag(this.newTag).subscribe({
+                next: () => this.getAll(),
                 error: err => {
                     alert("Не уникальное имя")
                     console.error(err)

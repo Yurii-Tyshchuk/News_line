@@ -15,6 +15,7 @@ import {TokenInterceptor} from "./interceptors/token/token.interceptor";
 import {CookieService} from "ngx-cookie-service";
 import {MessageComponent} from './components/message/message.component';
 import { CreateMessageComponent } from './components/create-message/create-message.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import { CreateMessageComponent } from './components/create-message/create-messa
         RegisterComponent,
         LoginComponent,
         MessageComponent,
-        CreateMessageComponent
+        CreateMessageComponent,
+        SearchComponent
     ],
     imports: [
         BrowserModule,
